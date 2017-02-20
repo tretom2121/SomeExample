@@ -26,25 +26,35 @@ namespace SomeExample.Data
 
             jobs = JsonConvert.DeserializeObject<List<importJob>>(_jsonToParse);
             List<Job> result = new List<Job>();
-            object lockObj = new object();
 
-            int i = 0;
-            foreach (var item in jobs)
+            if (jobs != null)
             {
-                var tmpJob = await ParseJobAsync(item).ConfigureAwait(false);
-                result.Add(tmpJob);
+                int i = 0;
+                foreach (var item in jobs)
+                {
+                    var tmpJob = await ParseJobAsync(item).ConfigureAwait(false);
+                    result.Add(tmpJob);
 
-                lock (lockObj) { i++; }
-                status.percent = (int)((double)i / jobs.Count() * 100);
-                status.process = "Downloading files (with an artificial delay of 5ms)";
-                status.isBusy = true;
-                DispatcherHelper.CheckBeginInvokeOnUI(() => Messenger.Default.Send<Status>(status));
-                Thread.Sleep(5);
+                    i++;
+                    status.percent = (int)((double)i / jobs.Count() * 100);
+                    status.process = "Downloading files (with an artificial delay of 5ms)";
+                    status.isBusy = true;
+                    DispatcherHelper.CheckBeginInvokeOnUI(() => Messenger.Default.Send<Status>(status));
+                    Thread.Sleep(5);
+                }
+                status.percent = 0;
+                status.process = "Ready";
+                status.isBusy = false;
+                DispatcherHelper.CheckBeginInvokeOnUI(() => Messenger.Default.Send<Status>(status)); 
             }
-            status.percent = 0;
-            status.process = "Ready";
-            status.isBusy = false;
-            DispatcherHelper.CheckBeginInvokeOnUI(() => Messenger.Default.Send<Status>(status));
+            else
+            {
+                jobs = new List<importJob>();
+                status.percent = 0;
+                status.process = "Error reading input";
+                status.isBusy = false;
+                DispatcherHelper.CheckBeginInvokeOnUI(() => Messenger.Default.Send<Status>(status));
+            }
 
             return result;
         }
@@ -55,7 +65,7 @@ namespace SomeExample.Data
             {
                 oneJob.job.link = oneJob.DetailsURL;
                 oneJob.job.status = true;
-                //if (string.IsNullOrEmpty(item.job.refNum)) item.job.refNum = GetRefNumFromHTML(item.job.link);
+                //if (string.IsNullOrEmpty(oneJob.job.refNum)) oneJob.job.refNum = GetRefNumFromHTML(oneJob.job.link);
                 return oneJob.job;
             });
         }

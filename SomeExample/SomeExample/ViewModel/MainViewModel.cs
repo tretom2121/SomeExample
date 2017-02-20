@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace SomeExample.ViewModel
@@ -217,7 +218,7 @@ namespace SomeExample.ViewModel
                     
                 }
                 else if (xmlOutChk)
-                { listSaver = new SaveListToXml(); }
+                { listSaver = new SaveListToXml(jobList.ToList()); }
                 else
                 { listSaver = new SaveListToJSon(jobList.ToList()); }
 

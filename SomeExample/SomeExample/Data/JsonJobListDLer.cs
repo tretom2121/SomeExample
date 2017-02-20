@@ -39,10 +39,14 @@ namespace SomeExample.Data
                 tmpJson = await wc.DownloadStringTaskAsync(completeURL.ToString()).ConfigureAwait(false);
                 if (tmpJson.Length > 2) result.Append(tmpJson);
                 tmpOffset += _offset;
-            } while (tmpJson.Length > 2);
+            } while (tmpJson.Length > 2 && tmpJson.Contains("{\"Posting\":{\"ID\":"));
 
             result = result.Replace("][", ",");
 
+            if (!result.ToString().Contains("{\"Posting\":{\"ID\":"))
+            {
+                return string.Empty;
+            }
             return result.ToString();
 
         }
