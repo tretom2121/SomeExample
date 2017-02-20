@@ -5,16 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SomeExample"
         mc:Ignorable="d"
-        Title="Some example" Height="350" Width="525">
+        Title="Some example" Height="600" Width="800"
+        WindowState="Maximized">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
@@ -25,22 +26,45 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Label Content="Select file type:" VerticalAlignment="Center"/>
-            <StackPanel Grid.Column="1">
+            <StackPanel Grid.Column="1" Margin="5">
                 <RadioButton VerticalAlignment="Center" Content="TXT" HorizontalAlignment="Left" IsChecked="{Binding txtChk}"/>
                 <RadioButton VerticalAlignment="Center" Content="XML" HorizontalAlignment="Left" IsChecked="{Binding xmlChk}"/>
                 <RadioButton VerticalAlignment="Center" Content="JSON" HorizontalAlignment="Left" IsChecked="{Binding jsonChk}"/>
             </StackPanel>
-            <Button Grid.Column="2" Content="Load file" Margin="5" MaxHeight="25" Command="{Binding LoadFileCommand}"/>
-            <TextBox Grid.RowSpan="2" Grid.Column="3" ScrollViewer.VerticalScrollBarVisibility="Auto" Text="{Binding fileContent}">
-                
-            </TextBox>
+            <Button Grid.Row="1" Grid.ColumnSpan="2" Content="Load list" Margin="5" MaxHeight="25" Command="{Binding LoadListCommand}" VerticalAlignment="Top"/>
+            <Label Grid.Row="2" Content="Output file type:" VerticalAlignment="Center"/>
+            <StackPanel Grid.Column="1" Grid.Row="2" Margin="5">
+                <RadioButton VerticalAlignment="Center" Content="TXT" HorizontalAlignment="Left" IsChecked="{Binding txtOutChk}"/>
+                <RadioButton VerticalAlignment="Center" Content="XML" HorizontalAlignment="Left" IsChecked="{Binding xmlOutChk}"/>
+                <RadioButton VerticalAlignment="Center" Content="JSON" HorizontalAlignment="Left" IsChecked="{Binding jsonOutChk}"/>
+            </StackPanel>
+            <Button Grid.Row="3" Grid.ColumnSpan="2" Content="Save list" Margin="5" MaxHeight="25" Command="{Binding SaveListCommand}" VerticalAlignment="Top"/>
+            <ListBox Grid.RowSpan="4" Grid.Column="3" HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto" ItemsSource="{Binding jobList}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderThickness="1" BorderBrush="DimGray">
+                            <Grid Margin="5" >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="{Binding title}" FontSize="14" FontWeight="SemiBold" />
+                                <TextBlock Grid.Row="1" Text="{Binding office.cityName}" FontStyle="Italic"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </Grid>
-
+<!--Statusbar section-->
         <DockPanel Grid.Row="4" Grid.ColumnSpan="5" LastChildFill="True" MinHeight="15">
             <Button Content="Exit" DockPanel.Dock="Right" MinWidth="50" Command="{Binding ExitCommand}" Background="LightCoral"/>
             <CheckBox IsChecked="{Binding canExitChecker, Mode=TwoWay}" DockPanel.Dock="Right" VerticalAlignment="Center" Margin="5"/>
             <Label DockPanel.Dock="Right" Content="Enable Exit:"/>
-            <ProgressBar Name="progressBar" Value="{Binding progressStatus, Mode=OneWay}" />
+            <Grid>
+                <ProgressBar Name="progressBar" Value="{Binding status.percent}" IsIndeterminate="{Binding isIndeterminate}" />
+                <TextBlock Text="{Binding status.process}" VerticalAlignment="Center" Margin="5,0,0,0" FontStyle="Italic"/>
+            </Grid>
         </DockPanel>
     </Grid>
 </Window>

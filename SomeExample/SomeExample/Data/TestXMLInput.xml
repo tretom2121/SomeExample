@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Candidate xmlns="http://www.hr-xml.org/3" xmlns:oa="http://www.openapplications.org/oagis/9" xmlns:persy="http://www.germanpersonnel.de/persy/1">
+	<CandidatePerson>
+		<PersonName>
+			<FormattedName>Herr Janos Mitarbeiter</FormattedName>
+			<oa:GivenName>Janos</oa:GivenName>
+			<FamilyName>Mitarbeiter</FamilyName>
+			<FormerFamilyName>Mitarbeiter</FormerFamilyName>
+			<PreferredSalutationCode>Herr</PreferredSalutationCode>
+		</PersonName>
+		<Communication>
+			<Address type="Residence">
+				<oa:AddressLine sequence="1">AM FORSTHAUS 8</oa:AddressLine>
+				<oa:CityName>Budapest</oa:CityName>
+				<CountryCode>HU</CountryCode>
+				<oa:PostalCode>1024</oa:PostalCode>
+			</Address>
+		</Communication>
+		<Communication>
+			<ChannelCode>MobileTelephone</ChannelCode>
+			<UseCode>Personal</UseCode>
+			<oa:CountryDialing>151</oa:CountryDialing>
+			<oa:AreaDialing>1033</oa:AreaDialing>
+			<oa:DialNumber>5148</oa:DialNumber>
+			<UserArea>
+				<persy:PreferredContact>true</persy:PreferredContact>
+			</UserArea>
+		</Communication>
+		<CitizenshipCountryCode>HU</CitizenshipCountryCode>
+		<BirthPlace>
+			<oa:CityName>MÜNCHEN</oa:CityName>
+		</BirthPlace>
+		<BirthDate>1975-05-26</BirthDate>
+		<GenderCode>Male</GenderCode>
+		<MaritalStatusCode>Married</MaritalStatusCode>
+		<Disability>
+			<DisabilityIndicator>false</DisabilityIndicator>
+		</Disability>
+		<UserArea>
+			<persy:Children>2</persy:Children>
+			<persy:Confidential>true</persy:Confidential>
+		</UserArea>
+	</CandidatePerson>
+</Candidate>

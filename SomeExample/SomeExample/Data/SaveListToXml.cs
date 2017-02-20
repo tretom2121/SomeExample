@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SomeExample.Model;
 
-namespace SomeExample.Model
+namespace SomeExample.Data
 {
-    public class XmlInput : IInputFile
+    public class SaveListToXml : IListSaver
     {
-        public string ReadContext(string path)
+        public void SaveList()
         {
             throw new NotImplementedException();
         }

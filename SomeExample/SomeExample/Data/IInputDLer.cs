@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SomeExample.Model
+namespace SomeExample.Data
 {
-    public interface IInputFile
+    public interface IInputDLer
     {
-        string ReadContext(string path);
+        Task<string> DownloadPostingsAsync();
     }
 }
